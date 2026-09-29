@@ -1,4 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
@@ -42,7 +42,7 @@ function executeTradeLogic(agent, listings) {
   return { tradesExecuted: trades, totalProfit, totalRake };
 }
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   try {
     console.log('🤖 Starting AI Trading Cycle...');
 

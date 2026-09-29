@@ -1,4 +1,4 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASE_URL,
@@ -7,7 +7,7 @@ const supabase = createClient(
 
 const RAKE_PERCENTAGE = 0.15;
 
-exports.handler = async (event, context) => {
+export const handler = async (event, context) => {
   try {
     const body = JSON.parse(event.body);
     const { action, userId, asset, amount, price, transactionType } = body;
