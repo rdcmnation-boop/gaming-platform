@@ -4,11 +4,12 @@
   publish = "build"
 
 [[functions]]
+  name = "processMarketplaceTransaction"
   node_bundler = "esbuild"
 
 [[functions]]
-  node_bundler = "esbuild"
   name = "runAITradingCycle"
+  node_bundler = "esbuild"
   schedule = "*/5 * * * *"
 
 [env]
