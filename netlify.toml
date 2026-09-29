@@ -1,0 +1,21 @@
+[build]
+  functions = "netlify/functions"
+  command = "npm run build"
+  publish = "build"
+
+[[functions]]
+  node_bundler = "esbuild"
+
+[[functions]]
+  node_bundler = "esbuild"
+  name = "runAITradingCycle"
+  schedule = "*/5 * * * *"
+
+[env]
+  [env.production]
+    REACT_APP_SUPABASE_URL = "${SUPABASE_URL}"
+    REACT_APP_SUPABASE_ANON_KEY = "${SUPABASE_ANON_KEY}"
+    SUPABASE_SERVICE_ROLE_KEY = "${SUPABASE_SERVICE_ROLE_KEY}"
+    REACT_APP_MARKETPLACE_RAKE_PERCENTAGE = "15"
+    REACT_APP_AI_AGENT_COUNT = "21"
+    REACT_APP_AI_TRADING_CYCLE_MINUTES = "5"
