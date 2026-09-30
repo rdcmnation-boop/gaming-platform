@@ -12,6 +12,7 @@ import Blackjack from './components/Blackjack';
 import Slots from './components/Slots';
 import Dice from './components/Dice';
 import Crash from './components/Crash';
+import NexusArena from './components/NexusArena';
 import AuthModal from './components/AuthModal';
 
 function AppContent() {
@@ -71,6 +72,12 @@ function AppContent() {
           📈 Crash
         </button>
         <button
+          className={`nav-btn ${activeTab === 'arena' ? 'active' : ''}`}
+          onClick={() => setActiveTab('arena')}
+        >
+          ⚔️ Arena
+        </button>
+        <button
           className={`nav-btn ${activeTab === 'poker' ? 'active' : ''}`}
           onClick={() => setActiveTab('poker')}
         >
@@ -108,6 +115,7 @@ function AppContent() {
         {activeTab === 'slots' && <Slots />}
         {activeTab === 'dice' && <Dice />}
         {activeTab === 'crash' && <Crash />}
+        {activeTab === 'arena' && <NexusArena />}
         {activeTab === 'poker' && <PokerGame />}
         {activeTab === 'betting' && <BettingBotDashboard />}
         {activeTab === 'teaching' && <TeachingModule />}

@@ -119,14 +119,14 @@ export default function Crash() {
         </div>
 
         {!gameActive && (
-          <div className={`game-result ${crashed ? 'lost' : cashed Out ? 'won' : ''}`}>
-            {crashed && !cashed Out && (
+          <div className={`game-result ${crashed ? 'lost' : cashedOut ? 'won' : ''}`}>
+            {crashed && !cashedOut && (
               <div className="lose-message">
                 😢 GAME CRASHED!
                 <p>You lost ${betAmount.toFixed(2)}</p>
               </div>
             )}
-            {cashed Out && (
+            {cashedOut && (
               <div className="win-message">
                 🎉 YOU CASHED OUT!
                 <p>Won ${winAmount.toFixed(2)}</p>
