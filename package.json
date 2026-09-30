@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "RDCM Nation Gaming Platform - AI Agent Marketplace",
   "homepage": ".",
-  "type": "module",
   "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
