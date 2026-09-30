@@ -5,6 +5,7 @@ import Marketplace from './components/Marketplace';
 import AILeaderboard from './components/AILeaderboard';
 import PokerGame from './components/PokerGame';
 import { TeachingModule } from './components/TeachingModule';
+import BettingBotDashboard from './components/BettingBotDashboard';
 import AuthModal from './components/AuthModal';
 
 function AppContent() {
@@ -46,6 +47,12 @@ function AppContent() {
           🎓 Academy
         </button>
         <button
+          className={`nav-btn ${activeTab === 'betting' ? 'active' : ''}`}
+          onClick={() => setActiveTab('betting')}
+        >
+          🤖 Betting Bot
+        </button>
+        <button
           className={`nav-btn ${activeTab === 'marketplace' ? 'active' : ''}`}
           onClick={() => setActiveTab('marketplace')}
         >
@@ -55,13 +62,14 @@ function AppContent() {
           className={`nav-btn ${activeTab === 'leaderboard' ? 'active' : ''}`}
           onClick={() => setActiveTab('leaderboard')}
         >
-          🤖 Leaderboard
+          📊 Leaderboard
         </button>
       </nav>
 
       <main className="app-content">
         {activeTab === 'poker' && <PokerGame />}
         {activeTab === 'teaching' && <TeachingModule />}
+        {activeTab === 'betting' && <BettingBotDashboard />}
         {activeTab === 'marketplace' && (
           <Marketplace
             userBalance={userBalance}

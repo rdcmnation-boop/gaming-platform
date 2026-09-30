@@ -100,6 +100,11 @@
   max-width: 1600px;
   width: 100%;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.app-content > div {
+  height: 100%;
 }
 
 .app-footer {
