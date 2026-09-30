@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import sportsAPI from '../utils/sportsAPI';
 import '../styles/bettingBot.css';
 
 export default function BettingBotDashboard() {
@@ -52,7 +53,63 @@ export default function BettingBotDashboard() {
     if (!activeSession) return;
 
     try {
-      // Mock opportunities for demo - in production, fetch from sports API
+      // Fetch real games from sports API
+      const games = await sportsAPI.getAllGames();
+
+      // Convert games to opportunities format
+      const opportunities = games.flatMap(game => {
+        const eventName = `${game.homeTeam.name} vs ${game.awayTeam.name}`;
+        const eventId = game.id;
+
+        // Calculate implied probability from odds (bookmaker probability)
+        // Implied Prob = 1 / odds
+        const homeImpliedProb = 1 / game.homeOdds;
+        const awayImpliedProb = 1 / game.awayOdds;
+
+        // Create opportunities for both home and away
+        return [
+          {
+            event_id: `${eventId}_home`,
+            event_name: eventName,
+            odds: game.homeOdds,
+            probability: homeImpliedProb,
+            sport: game.sport,
+            bet_type: 'moneyline',
+            team_or_player: game.homeTeam.name,
+            event_date: game.matchTime.toISOString(),
+            homeTeamStats: game.homeTeamStats,
+            awayTeamStats: game.awayTeamStats
+          },
+          {
+            event_id: `${eventId}_away`,
+            event_name: eventName,
+            odds: game.awayOdds,
+            probability: awayImpliedProb,
+            sport: game.sport,
+            bet_type: 'moneyline',
+            team_or_player: game.awayTeam.name,
+            event_date: game.matchTime.toISOString(),
+            homeTeamStats: game.homeTeamStats,
+            awayTeamStats: game.awayTeamStats
+          }
+        ];
+      });
+
+      // Analyze opportunities with bot
+      const response = await fetch('/api/bets/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: activeSession,
+          opportunities: opportunities
+        })
+      });
+
+      const data = await response.json();
+      setOpportunities(data.topRecommendations || data.opportunities || []);
+    } catch (error) {
+      console.error('Failed to load opportunities:', error);
+      // Fallback to mock data if sports API fails
       const mockOpportunities = [
         {
           event_id: 'nfl_1',
@@ -86,8 +143,7 @@ export default function BettingBotDashboard() {
         }
       ];
 
-      // Analyze opportunities with bot
-      const response = await fetch('/api/bets/analyze', {
+      const fallbackResponse = await fetch('/api/bets/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -96,10 +152,8 @@ export default function BettingBotDashboard() {
         })
       });
 
-      const data = await response.json();
+      const data = await fallbackResponse.json();
       setOpportunities(data.topRecommendations || data.opportunities || []);
-    } catch (error) {
-      console.error('Failed to load opportunities:', error);
     }
   }
 
