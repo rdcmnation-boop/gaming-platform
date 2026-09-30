@@ -12,8 +12,8 @@ export function Leaderboard() {
     fetchLeaderboard();
     // Set up real-time subscription
     const subscription = supabase
-      .from('players')
-      .on('*', () => {
+      .channel('players')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'players' }, () => {
         fetchLeaderboard();
       })
       .subscribe();
