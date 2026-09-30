@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Marketplace from './components/Marketplace';
 import AILeaderboard from './components/AILeaderboard';
 import PokerGame from './components/PokerGame';
+import { TeachingModule } from './components/TeachingModule';
 import AuthModal from './components/AuthModal';
 
 function AppContent() {
@@ -39,6 +40,12 @@ function AppContent() {
           🃏 Poker
         </button>
         <button
+          className={`nav-btn ${activeTab === 'teaching' ? 'active' : ''}`}
+          onClick={() => setActiveTab('teaching')}
+        >
+          🎓 Academy
+        </button>
+        <button
           className={`nav-btn ${activeTab === 'marketplace' ? 'active' : ''}`}
           onClick={() => setActiveTab('marketplace')}
         >
@@ -54,6 +61,7 @@ function AppContent() {
 
       <main className="app-content">
         {activeTab === 'poker' && <PokerGame />}
+        {activeTab === 'teaching' && <TeachingModule />}
         {activeTab === 'marketplace' && (
           <Marketplace
             userBalance={userBalance}

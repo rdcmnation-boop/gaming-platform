@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { generateRandomHand, evaluateWinner, calculatePayout, getBotPersonality, formatCurrency } from '../utils/pokerLogic';
+import { CoachingPanel } from './CoachingPanel';
 import '../styles/pokerGame.css';
 
 const AI_BOTS = [
@@ -19,6 +20,10 @@ export default function PokerGame() {
   const [currentBet, setCurrentBet] = useState(100);
   const [gameLog, setGameLog] = useState([]);
   const [practiceMode, setPracticeMode] = useState(false);
+  const [coachingEnabled, setCoachingEnabled] = useState(true);
+  const [playerPosition, setPlayerPosition] = useState('button');
+  const [lastPlayerDecision, setLastPlayerDecision] = useState(null);
+  const [lastGameResult, setLastGameResult] = useState(null);
 
   useEffect(() => {
     if (user && playerData && gameState === 'lobby') {
@@ -205,10 +210,26 @@ export default function PokerGame() {
         ))}
       </div>
 
-      <div className="game-log">
-        {gameLog.map((log, idx) => (
-          <div key={idx} className="log-entry">{log}</div>
-        ))}
+      <div style={{ display: 'flex', gap: '16px', flex: 1 }}>
+        <div className="game-log" style={{ flex: 1 }}>
+          {gameLog.map((log, idx) => (
+            <div key={idx} className="log-entry">{log}</div>
+          ))}
+        </div>
+
+        <div style={{ width: '280px' }}>
+          <CoachingPanel
+            currentHand={players[0]?.hand}
+            pot={pot}
+            position={playerPosition}
+            opponents={players.slice(1)}
+            chipStack={players[0]?.balance}
+            gamePhase={gameState}
+            playerDecision={lastPlayerDecision}
+            lastResult={lastGameResult}
+            showCoaching={coachingEnabled}
+          />
+        </div>
       </div>
 
       <div className="controls">
@@ -221,6 +242,14 @@ export default function PokerGame() {
                 onChange={(e) => setPracticeMode(e.target.checked)}
               />
               Practice Mode
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={coachingEnabled}
+                onChange={(e) => setCoachingEnabled(e.target.checked)}
+              />
+              🎓 Coaching
             </label>
             <label>
               Bet:

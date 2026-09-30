@@ -1,0 +1,409 @@
+.teaching-module {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.teaching-header {
+  text-align: center;
+  margin-bottom: 32px;
+  border-bottom: 2px solid rgba(255, 107, 157, 0.3);
+  padding-bottom: 16px;
+}
+
+.teaching-header h2 {
+  font-size: 32px;
+  margin: 0 0 8px 0;
+  color: #FF6B9D;
+}
+
+.teaching-header p {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Tabs */
+.teaching-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 107, 157, 0.2);
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  color: #888;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.tab-button:hover {
+  color: #FF6B9D;
+}
+
+.tab-button.active {
+  color: #FF6B9D;
+  border-bottom-color: #FF6B9D;
+}
+
+/* Content */
+.teaching-content {
+  min-height: 600px;
+}
+
+/* Rankings Section */
+.rankings-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.ranking-selector h3 {
+  margin-top: 0;
+  color: #FF6B9D;
+  font-size: 18px;
+}
+
+.ranking-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.ranking-button {
+  background: rgba(255, 107, 157, 0.1);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  color: #aaa;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.ranking-button:hover {
+  border-color: #FF6B9D;
+  color: #FF6B9D;
+  background: rgba(255, 107, 157, 0.2);
+}
+
+.ranking-button.selected {
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #FF6B9D;
+  color: #FF6B9D;
+}
+
+/* Hand Details */
+.hand-detail-card {
+  background: rgba(100, 100, 255, 0.1);
+  border: 1px solid rgba(100, 100, 255, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+  grid-column: 2;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(100, 100, 255, 0.3);
+}
+
+.detail-header h4 {
+  margin: 0;
+  color: #00ff88;
+  font-size: 18px;
+}
+
+.detail-rank {
+  background: rgba(255, 107, 157, 0.2);
+  color: #FF6B9D;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detail-section {
+  margin-bottom: 16px;
+}
+
+.detail-section h5 {
+  margin: 0 0 8px 0;
+  color: #FF6B9D;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.detail-section p {
+  margin: 0;
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.strategy-text {
+  background: rgba(0, 255, 136, 0.1);
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 3px solid #00ff88;
+  color: #00ff88;
+}
+
+.example-hand {
+  background: rgba(100, 100, 255, 0.1);
+  padding: 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  color: #66ff99;
+}
+
+/* Concepts Section */
+.concepts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.concept-selector h3 {
+  margin-top: 0;
+  color: #FF6B9D;
+  font-size: 18px;
+}
+
+.concept-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.concept-button {
+  background: rgba(255, 107, 157, 0.1);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  color: #aaa;
+  padding: 12px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.concept-button:hover {
+  border-color: #FF6B9D;
+  color: #FF6B9D;
+  background: rgba(255, 107, 157, 0.2);
+}
+
+.concept-button.active {
+  background: rgba(255, 107, 157, 0.3);
+  border-color: #FF6B9D;
+  color: #FF6B9D;
+}
+
+.concept-details {
+  grid-column: 2;
+}
+
+.concept-card {
+  background: rgba(100, 100, 255, 0.1);
+  border: 1px solid rgba(100, 100, 255, 0.3);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.concept-card h4 {
+  margin-top: 0;
+  color: #00ff88;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.concept-explanation {
+  color: #ccc;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.position-guide,
+.odds-guide,
+.bankroll-guide {
+  background: rgba(0, 255, 136, 0.1);
+  border-left: 3px solid #00ff88;
+  padding: 12px;
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.position-item {
+  margin-bottom: 12px;
+}
+
+.position-item:last-child {
+  margin-bottom: 0;
+}
+
+.position-item strong {
+  color: #00ff88;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.position-item p,
+.odds-example p {
+  margin: 0;
+  color: #ccc;
+  font-size: 12px;
+}
+
+.odds-example {
+  background: rgba(255, 107, 157, 0.1);
+  padding: 12px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.odds-example p {
+  color: #FF6B9D;
+  margin: 4px 0;
+}
+
+.bankroll-guide ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bankroll-guide li {
+  color: #ccc;
+  padding: 6px 0;
+  padding-left: 20px;
+  position: relative;
+  font-size: 12px;
+}
+
+.bankroll-guide li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00ff88;
+  font-weight: bold;
+}
+
+/* Strategies Section */
+.strategies-section {
+  padding: 0;
+}
+
+.strategy-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.strategy-card {
+  background: rgba(255, 107, 157, 0.1);
+  border: 2px solid rgba(255, 107, 157, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.strategy-card:hover {
+  border-color: #FF6B9D;
+  background: rgba(255, 107, 157, 0.2);
+  transform: translateY(-2px);
+}
+
+.strategy-card h4 {
+  margin: 0 0 8px 0;
+  color: #FF6B9D;
+  font-size: 16px;
+}
+
+.strategy-card p {
+  margin: 0 0 12px 0;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.strategy-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.strategy-card li {
+  color: #ccc;
+  font-size: 12px;
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.strategy-card li:before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #00ff88;
+}
+
+/* Footer */
+.teaching-footer {
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 107, 157, 0.2);
+  color: #888;
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .rankings-section,
+  .concepts-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hand-detail-card {
+    grid-column: 1;
+  }
+
+  .concept-details {
+    grid-column: 1;
+  }
+
+  .strategy-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .teaching-tabs {
+    gap: 0;
+    margin-bottom: 16px;
+  }
+
+  .tab-button {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+}
