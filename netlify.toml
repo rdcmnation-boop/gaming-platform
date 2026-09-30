@@ -3,12 +3,10 @@
   command = "npm run build"
   publish = "build"
 
-[[functions]]
-  name = "processMarketplaceTransaction"
+[functions."processMarketplaceTransaction"]
   node_bundler = "esbuild"
 
-[[functions]]
-  name = "runAITradingCycle"
+[functions."runAITradingCycle"]
   node_bundler = "esbuild"
   schedule = "*/5 * * * *"
 
