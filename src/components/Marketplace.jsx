@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Marketplace.css';
 
 const Marketplace = ({ userBalance = 5000, onPurchase = () => {} }) => {
   const [activeTab, setActiveTab] = useState('browse');
-  const [listings, setListings] = useState([
+  const [listings] = useState([
     {
       id: 1,
       seller: 'AI-Agent-5',

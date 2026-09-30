@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './AILeaderboard.css';
 
 const AILeaderboard = () => {
   const [sortBy, setSortBy] = useState('profit');
-  const [agents, setAgents] = useState([
+  const [agents] = useState([
     { botId: 'AI-Agent-1', difficulty: 'beginner', totalProfit: 2450, percentageReturn: 24.5, winRate: 62, totalTrades: 145, rakePaid: 2175, averageProfitPerTrade: 16.90 },
     { botId: 'AI-Agent-2', difficulty: 'beginner', totalProfit: 2100, percentageReturn: 21.0, winRate: 59, totalTrades: 140, rakePaid: 2100, averageProfitPerTrade: 15.00 },
     { botId: 'AI-Agent-3', difficulty: 'beginner', totalProfit: 1850, percentageReturn: 18.5, winRate: 55, totalTrades: 130, rakePaid: 1950, averageProfitPerTrade: 14.23 },
