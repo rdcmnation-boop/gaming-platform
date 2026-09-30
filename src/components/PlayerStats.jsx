@@ -15,7 +15,8 @@ export function PlayerStats() {
       fetchStats();
       fetchGameHistory();
     }
-  }, [user, timeframe]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   async function fetchStats() {
     try {
