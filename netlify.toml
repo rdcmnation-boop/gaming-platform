@@ -3,6 +3,9 @@
   command = "npm run build"
   publish = "build"
 
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
 [functions."processMarketplaceTransaction"]
   node_bundler = "esbuild"
 
