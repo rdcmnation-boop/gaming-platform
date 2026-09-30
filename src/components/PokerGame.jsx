@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { generateRandomHand, evaluateWinner, calculatePayout, getBotPersonality, formatCurrency } from '../utils/pokerLogic';
+import { getBotDecision, getCoachingAdvice, saveGameResults } from '../utils/botAPI';
 import { CoachingPanel } from './CoachingPanel';
 import '../styles/pokerGame.css';
 
@@ -77,30 +78,8 @@ export default function PokerGame() {
     let newPlayers = [...players];
     let totalPot = 0;
 
-    // Collect bets
-    addLog('--- PLACING BETS ---');
-    newPlayers.forEach((player, idx) => {
-      if (player.isActive) {
-        let betAmount = currentBet;
-        if (player.type === 'ai') {
-          betAmount = Math.floor(currentBet * (0.8 + Math.random() * 0.4));
-        }
-        betAmount = Math.min(betAmount, player.balance);
-
-        newPlayers[idx].bet = betAmount;
-        newPlayers[idx].balance -= betAmount;
-        totalPot += betAmount;
-
-        const personality = getBotPersonality(player.name);
-        addLog(`${player.name} bets ${formatCurrency(betAmount)} → ${personality.comments.bet}`);
-      }
-    });
-
-    setPot(totalPot);
-    setPlayers(newPlayers);
-
-    // Deal cards
-    await new Promise(r => setTimeout(r, 1500));
+    // Deal cards first
+    await new Promise(r => setTimeout(r, 800));
     addLog('--- DEALING CARDS ---');
 
     newPlayers.forEach((player, idx) => {
@@ -108,21 +87,74 @@ export default function PokerGame() {
       newPlayers[idx].hand = hand;
       const handDisplay = idx === 0 ? hand.name : '🃏 🃏';
       addLog(`${player.name} receives: ${handDisplay}`);
-      if (player.type === 'ai') {
-        const personality = getBotPersonality(player.name);
-        addLog(`  → ${personality.comments.hand}`);
-      }
     });
 
+    setPlayers(newPlayers);
+
+    // Collect bets with bot decisions from API
+    await new Promise(r => setTimeout(r, 1000));
+    addLog('--- BETTING ROUND ---');
+
+    for (let idx = 0; idx < newPlayers.length; idx++) {
+      const player = newPlayers[idx];
+      if (!player.isActive) continue;
+
+      let betAmount = currentBet;
+      let action = 'CALL';
+
+      if (player.type === 'ai') {
+        try {
+          // Get bot decision from backend API
+          const decision = await getBotDecision(
+            player.name,
+            player.level,
+            player.hand.rank,
+            playerPosition,
+            totalPot,
+            newPlayers.length - 1
+          );
+
+          action = decision.action;
+
+          if (action === 'RAISE') {
+            betAmount = Math.floor(currentBet * 1.5);
+          } else if (action === 'FOLD') {
+            betAmount = 0;
+            player.isActive = false;
+          } else if (action === 'BLUFF') {
+            betAmount = Math.floor(currentBet * 1.2);
+            action = 'BLUFF';
+          }
+
+          addLog(`${player.name} ${action} → ${decision.suggestion}`);
+        } catch (error) {
+          console.error('Bot decision error:', error);
+          betAmount = Math.floor(currentBet * (0.8 + Math.random() * 0.4));
+          addLog(`${player.name} bets ${formatCurrency(betAmount)}`);
+        }
+      } else {
+        const personality = getBotPersonality(player.name);
+        addLog(`${player.name} bets ${formatCurrency(betAmount)} → ${personality.comments.bet}`);
+      }
+
+      betAmount = Math.min(betAmount, player.balance);
+      if (betAmount > 0) {
+        newPlayers[idx].bet = betAmount;
+        newPlayers[idx].balance -= betAmount;
+        totalPot += betAmount;
+      }
+    }
+
+    setPot(totalPot);
     setPlayers(newPlayers);
 
     // Evaluate
     await new Promise(r => setTimeout(r, 2000));
     addLog('--- EVALUATING HANDS ---');
-    evaluateAndShowWinners(newPlayers, totalPot);
+    await evaluateAndShowWinners(newPlayers, totalPot);
   }
 
-  function evaluateAndShowWinners(players, totalPot) {
+  async function evaluateAndShowWinners(players, totalPot) {
     const winners = evaluateWinner(players);
     const payout = calculatePayout(totalPot, winners.length);
 
@@ -133,15 +165,41 @@ export default function PokerGame() {
     });
 
     addLog('--- RESULTS ---');
+    let winnerName = '';
     if (winners.includes(0)) {
       addLog('🎉 YOU WIN! 🎉');
       addLog(`+${formatCurrency(payout)} from pot of ${formatCurrency(totalPot)}`);
+      winnerName = playerData.username;
     } else {
       const winner = players[winners[0]];
       const personality = getBotPersonality(winner.name);
       addLog(`${winner.name.toUpperCase()} WINS!`);
       addLog(`  → ${personality.comments.win}`);
       addLog(`Won ${formatCurrency(payout)}`);
+      winnerName = winner.name;
+    }
+
+    // Save game results to database
+    try {
+      const bots = players
+        .filter(p => p.type === 'ai')
+        .map(p => p.name);
+
+      await saveGameResults({
+        userId: user.id,
+        playerName: playerData.username,
+        buyIn: currentBet * players.length,
+        finalStack: newPlayers[0].balance,
+        profit: newPlayers[0].profit || 0,
+        duration: 30, // simplified
+        handsPlayed: 1,
+        bots,
+        winner: winnerName,
+        coachingEnabled,
+        difficulty: 'casual'
+      });
+    } catch (error) {
+      console.error('Failed to save game:', error);
     }
 
     setPlayers(newPlayers);

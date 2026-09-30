@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CoachingBot } from '../utils/BotSystem';
+import { getCoachingAdvice } from '../utils/botAPI';
 import '../styles/coaching.css';
 
 export function CoachingPanel({
@@ -19,39 +19,43 @@ export function CoachingPanel({
   const [expandedAdvice, setExpandedAdvice] = useState(false);
 
   useEffect(() => {
-    if (!showCoaching) return;
+    if (!showCoaching || !currentHand) return;
 
-    // Get real-time coaching advice
-    const coachAdvice = CoachingBot.getCoachingAdvice(
-      currentHand,
-      playerDecision,
-      pot,
-      position,
-      opponents,
-      gamePhase
-    );
-    setAdvice(coachAdvice);
+    // Get real-time coaching advice from backend API
+    const fetchCoachingAdvice = async () => {
+      try {
+        const advice = await getCoachingAdvice(
+          currentHand.rank,
+          position,
+          pot || 0,
+          opponents?.length || 0,
+          gamePhase
+        );
 
-    // Get next move suggestion
-    if (gamePhase === 'betting' && currentHand) {
-      const nextMove = CoachingBot.suggestNextMove(
-        currentHand,
-        pot,
-        chipStack,
-        opponents
-      );
-      setSuggestion(nextMove);
-    }
+        // Extract tips from advice
+        if (advice.tips) {
+          setAdvice(advice.tips);
+        }
 
-    // Analyze last result if available
-    if (lastResult && playerDecision) {
-      const analysis = CoachingBot.replayAnalysis(
-        currentHand,
-        playerDecision,
-        lastResult
-      );
-      setReplayFeedback(analysis);
-    }
+        // Set recommended action
+        if (advice.recommendedAction) {
+          setSuggestion(advice.recommendedAction);
+        }
+
+        // Set feedback if available
+        if (advice.feedback) {
+          setReplayFeedback({
+            feedback: advice.feedback.message,
+            icon: advice.feedback.icon,
+            handStrength: currentHand
+          });
+        }
+      } catch (error) {
+        console.error('Coaching error:', error);
+      }
+    };
+
+    fetchCoachingAdvice();
   }, [currentHand, pot, position, opponents, gamePhase, playerDecision, lastResult, showCoaching]);
 
   if (!showCoaching) {
