@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import './App.css';
+import './styles/nexus3036.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Marketplace from './components/Marketplace';
 import AILeaderboard from './components/AILeaderboard';
 import PokerGame from './components/PokerGame';
 import { TeachingModule } from './components/TeachingModule';
 import BettingBotDashboard from './components/BettingBotDashboard';
+import CryptoMining from './components/CryptoMining';
+import Blackjack from './components/Blackjack';
+import Slots from './components/Slots';
+import Dice from './components/Dice';
+import Crash from './components/Crash';
 import AuthModal from './components/AuthModal';
 
 function AppContent() {
-  const [activeTab, setActiveTab] = useState('poker');
+  const [activeTab, setActiveTab] = useState('mining');
   const [userBalance, setUserBalance] = useState(5000);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const { user, signOut } = useAuth();
@@ -35,22 +41,52 @@ function AppContent() {
 
       <nav className="app-nav">
         <button
+          className={`nav-btn ${activeTab === 'mining' ? 'active' : ''}`}
+          onClick={() => setActiveTab('mining')}
+        >
+          ⛏️ Mining
+        </button>
+        <button
+          className={`nav-btn ${activeTab === 'blackjack' ? 'active' : ''}`}
+          onClick={() => setActiveTab('blackjack')}
+        >
+          ♠️ Blackjack
+        </button>
+        <button
+          className={`nav-btn ${activeTab === 'slots' ? 'active' : ''}`}
+          onClick={() => setActiveTab('slots')}
+        >
+          🎰 Slots
+        </button>
+        <button
+          className={`nav-btn ${activeTab === 'dice' ? 'active' : ''}`}
+          onClick={() => setActiveTab('dice')}
+        >
+          🎲 Dice
+        </button>
+        <button
+          className={`nav-btn ${activeTab === 'crash' ? 'active' : ''}`}
+          onClick={() => setActiveTab('crash')}
+        >
+          📈 Crash
+        </button>
+        <button
           className={`nav-btn ${activeTab === 'poker' ? 'active' : ''}`}
           onClick={() => setActiveTab('poker')}
         >
           🃏 Poker
         </button>
         <button
-          className={`nav-btn ${activeTab === 'teaching' ? 'active' : ''}`}
-          onClick={() => setActiveTab('teaching')}
-        >
-          🎓 Academy
-        </button>
-        <button
           className={`nav-btn ${activeTab === 'betting' ? 'active' : ''}`}
           onClick={() => setActiveTab('betting')}
         >
           🤖 Betting Bot
+        </button>
+        <button
+          className={`nav-btn ${activeTab === 'teaching' ? 'active' : ''}`}
+          onClick={() => setActiveTab('teaching')}
+        >
+          🎓 Academy
         </button>
         <button
           className={`nav-btn ${activeTab === 'marketplace' ? 'active' : ''}`}
@@ -67,9 +103,14 @@ function AppContent() {
       </nav>
 
       <main className="app-content">
+        {activeTab === 'mining' && <CryptoMining />}
+        {activeTab === 'blackjack' && <Blackjack />}
+        {activeTab === 'slots' && <Slots />}
+        {activeTab === 'dice' && <Dice />}
+        {activeTab === 'crash' && <Crash />}
         {activeTab === 'poker' && <PokerGame />}
-        {activeTab === 'teaching' && <TeachingModule />}
         {activeTab === 'betting' && <BettingBotDashboard />}
+        {activeTab === 'teaching' && <TeachingModule />}
         {activeTab === 'marketplace' && (
           <Marketplace
             userBalance={userBalance}
