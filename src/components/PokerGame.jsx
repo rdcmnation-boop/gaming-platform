@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../utils/supabaseClient';
 import { generateRandomHand, evaluateWinner, calculatePayout, getBotPersonality, formatCurrency } from '../utils/pokerLogic';
 import '../styles/pokerGame.css';
 
@@ -19,14 +18,14 @@ export default function PokerGame() {
   const [pot, setPot] = useState(0);
   const [currentBet, setCurrentBet] = useState(100);
   const [gameLog, setGameLog] = useState([]);
-  const [sessionCode, setSessionCode] = useState('');
   const [practiceMode, setPracticeMode] = useState(false);
 
   useEffect(() => {
     if (user && playerData && gameState === 'lobby') {
       initializePlayers();
     }
-  }, [user, playerData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, playerData, gameState]);
 
   function initializePlayers() {
     const humanPlayer = {
