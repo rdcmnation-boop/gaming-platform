@@ -1,0 +1,252 @@
+.leaderboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.leaderboard-header {
+  background: linear-gradient(135deg, #1a2332 0%, #142a3f 100%);
+  border: 2px solid #00d4ff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.leaderboard-header h2 {
+  color: #00d4ff;
+  font-size: 2.5em;
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+}
+
+.leaderboard-header p {
+  color: #d4af37;
+  font-size: 1.1em;
+  margin: 0;
+}
+
+.leaderboard-controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 2px solid #00d4ff;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-group label {
+  color: #d4af37;
+  font-weight: 600;
+  font-size: 0.95em;
+}
+
+.control-select {
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #00d4ff;
+  color: #00d4ff;
+  border-radius: 6px;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-select:hover {
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+}
+
+.control-select:focus {
+  outline: none;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+}
+
+.leaderboard-table {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #00d4ff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.loading,
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #d4af37;
+  font-size: 1.2em;
+}
+
+.leaderboard-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(10, 20, 30, 0.8);
+}
+
+.leaderboard-table thead {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(212, 175, 55, 0.15) 100%);
+  border-bottom: 2px solid #00d4ff;
+}
+
+.leaderboard-table th {
+  padding: 15px;
+  text-align: left;
+  color: #00d4ff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  letter-spacing: 1px;
+  border-right: 1px solid #00d4ff;
+}
+
+.leaderboard-table th:last-child {
+  border-right: none;
+}
+
+.leaderboard-table tbody tr {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: rgba(0, 212, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.leaderboard-table tbody tr.rank-1 {
+  background: rgba(212, 175, 55, 0.15);
+  border-left: 4px solid #d4af37;
+}
+
+.leaderboard-table tbody tr.rank-2 {
+  background: rgba(192, 192, 192, 0.1);
+  border-left: 4px solid #c0c0c0;
+}
+
+.leaderboard-table tbody tr.rank-3 {
+  background: rgba(205, 127, 50, 0.1);
+  border-left: 4px solid #cd7f32;
+}
+
+.leaderboard-table td {
+  padding: 15px;
+  color: #e0e0e0;
+  border-right: 1px solid rgba(0, 212, 255, 0.1);
+  font-size: 0.95em;
+}
+
+.leaderboard-table td:last-child {
+  border-right: none;
+}
+
+.rank-cell {
+  color: #d4af37 !important;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1em;
+}
+
+.rank-number {
+  color: #00d4ff;
+}
+
+.player-name-cell {
+  min-width: 200px;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00d4ff 0%, #d4af37 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0f1419;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.balance-cell {
+  color: #00d4ff !important;
+  font-weight: 600;
+}
+
+.profit-cell {
+  font-weight: 600;
+}
+
+.profit-cell.positive {
+  color: #00ff88 !important;
+}
+
+.profit-cell.negative {
+  color: #ff4444 !important;
+}
+
+.wins-cell {
+  color: #00ff88 !important;
+  font-weight: 600;
+}
+
+.winrate-cell {
+  color: #d4af37 !important;
+  font-weight: 600;
+}
+
+.hands-cell {
+  color: #888 !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .leaderboard-container {
+    padding: 10px;
+  }
+
+  .leaderboard-controls {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .control-group {
+    width: 100%;
+  }
+
+  .leaderboard-table table {
+    font-size: 0.85em;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 10px;
+  }
+
+  .player-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .player-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9em;
+  }
+}
