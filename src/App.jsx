@@ -1,22 +1,43 @@
 import React, { useState } from 'react';
 import './App.css';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Marketplace from './components/Marketplace';
 import AILeaderboard from './components/AILeaderboard';
+import PokerGame from './components/PokerGame';
+import AuthModal from './components/AuthModal';
 
-function App() {
-  const [activeTab, setActiveTab] = useState('marketplace');
+function AppContent() {
+  const [activeTab, setActiveTab] = useState('poker');
   const [userBalance, setUserBalance] = useState(5000);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
   return (
     <div className="app">
       <header className="app-header">
         <div className="header-content">
-          <h1>🎮 RDCM Nation Marketplace</h1>
-          <p>AI-Powered Trading Platform</p>
+          <h1>🎮 RDCM Nation Platform</h1>
+          <p>AI Poker & Trading</p>
+        </div>
+        <div className="header-auth">
+          {user ? (
+            <>
+              <span className="user-email">{user.email}</span>
+              <button onClick={() => signOut()} className="btn-signout">Sign Out</button>
+            </>
+          ) : (
+            <button onClick={() => setAuthModalOpen(true)} className="btn-signin">Sign In</button>
+          )}
         </div>
       </header>
 
       <nav className="app-nav">
+        <button
+          className={`nav-btn ${activeTab === 'poker' ? 'active' : ''}`}
+          onClick={() => setActiveTab('poker')}
+        >
+          🃏 Poker
+        </button>
         <button
           className={`nav-btn ${activeTab === 'marketplace' ? 'active' : ''}`}
           onClick={() => setActiveTab('marketplace')}
@@ -32,6 +53,7 @@ function App() {
       </nav>
 
       <main className="app-content">
+        {activeTab === 'poker' && <PokerGame />}
         {activeTab === 'marketplace' && (
           <Marketplace
             userBalance={userBalance}
@@ -42,9 +64,19 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        <p>© 2026 RDCM Nation. All rights reserved. | 15% Platform Rake</p>
+        <p>© 2026 RDCM Nation. All rights reserved. | Free Supabase Backend</p>
       </footer>
+
+      <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 
