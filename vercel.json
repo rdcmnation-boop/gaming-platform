@@ -1,5 +1,17 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "installCommand": "npm install"
+  "name": "RDCM AI Trading Bots",
+  "version": 2,
+  "public": true,
+  "builds": [
+    {
+      "src": "bot_dashboard.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "bot_dashboard.html"
+    }
+  ]
 }
