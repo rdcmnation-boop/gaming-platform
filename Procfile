@@ -1,1 +1,1 @@
-worker: python rdcm_bot_v3.py
+worker: python trading_bot_working.py
