@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import './App.css';
 import './styles/nexus3036.css';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import Marketplace from './components/Marketplace';
-import AILeaderboard from './components/AILeaderboard';
-import PokerGame from './components/PokerGame';
-import { TeachingModule } from './components/TeachingModule';
-import BettingBotDashboard from './components/BettingBotDashboard';
 import CryptoMining from './components/CryptoMining';
 import Blackjack from './components/Blackjack';
 import Slots from './components/Slots';
 import Dice from './components/Dice';
 import Crash from './components/Crash';
 import NexusArena from './components/NexusArena';
+import PokerGame from './components/PokerGame';
+import BettingBotDashboard from './components/BettingBotDashboard';
+import { TeachingModule } from './components/TeachingModule';
+import Marketplace from './components/Marketplace';
+import AILeaderboard from './components/AILeaderboard';
 import AuthModal from './components/AuthModal';
 
 function AppContent() {
