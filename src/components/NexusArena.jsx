@@ -251,7 +251,7 @@ export default function NexusArena() {
         cancelAnimationFrame(gameLoopRef.current);
       }
     };
-  }, [gameState, player, players, zones, powerUps, kills]);
+  }, [gameState, player]);
 
   // Zone shrink timer
   useEffect(() => {
