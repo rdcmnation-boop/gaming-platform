@@ -1,1 +1,1 @@
-worker: python rdcm_bot_multibroker.py
+worker: python rdcm_bot_v3.py
