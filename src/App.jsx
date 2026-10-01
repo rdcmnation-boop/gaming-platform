@@ -25,8 +25,8 @@ function AppContent() {
     <div className="app">
       <header className="app-header">
         <div className="header-content">
-          <h1>🎮 RDCM Nation Platform</h1>
-          <p>AI Poker & Trading</p>
+          <h1>🎮 RDCM NATION</h1>
+          <p>Nexus Gaming Hub 3036</p>
         </div>
         <div className="header-auth">
           {user ? (
@@ -129,7 +129,7 @@ function AppContent() {
       </main>
 
       <footer className="app-footer">
-        <p>© 2026 RDCM Nation. All rights reserved. | Free Supabase Backend</p>
+        <p>© 2026 RDCM NATION | Nexus Gaming Hub | Powered by Claude AI + Supabase</p>
       </footer>
 
       <AuthModal isOpen={authModalOpen} onClose={() => setAuthModalOpen(false)} />
